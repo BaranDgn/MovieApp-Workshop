@@ -37,8 +37,7 @@ fun MovieDetailScreen(
     viewModel: MovieDetailViewModel = hiltViewModel(),
 ){
 
-    //var cryptoItem : Resource<Crypto> = Resource.Loading()
-    //Stateful
+
 
     val movieItem = produceState<Resource<MovieResponse>>(initialValue = Resource.Loading()){
         value = viewModel.getMovie()
