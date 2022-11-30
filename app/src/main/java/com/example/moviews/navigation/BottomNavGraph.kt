@@ -50,11 +50,7 @@ fun BottomNavGraph(
            // val Myposter_path = remember {
           //      it.arguments?.getString("Myposter_path")
           //  }
-            MyListScreen(
-                orginal_title = MymovieTitle ?: "",
-                vote_average = Myvote_average!!.toDouble(),
-            //    poster_path = Myposter_path ?: "",
-                navController = navController)
+            MyListScreen()
         }
         //UPCOMING SCREEN
         composable(route = BottomBarScreen.UpComing.route){
