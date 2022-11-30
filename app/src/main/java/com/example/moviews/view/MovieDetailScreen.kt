@@ -1,10 +1,7 @@
 package com.example.moviews.view
 
-import android.content.Intent
-import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.*
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -19,14 +16,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-
 import coil.compose.rememberImagePainter
 import com.example.moviews.model.MovieResponse
-import com.example.moviews.model.MovieResponseItems
-import com.example.moviews.model.myListModel
-import com.example.moviews.util.Constrants.LOGO_URL
 import com.example.moviews.util.Resource
 import com.example.moviews.viewmodel.MovieDetailViewModel
+import java.math.BigDecimal
+import java.math.RoundingMode
 
 @Composable
 fun MovieDetailScreen(
@@ -48,7 +43,7 @@ fun MovieDetailScreen(
 
     val ctx = LocalContext.current
 
-    val myListem : List<myListModel>
+
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
@@ -92,24 +87,24 @@ fun MovieDetailScreen(
                         color = Color.Blue,
                         textAlign = TextAlign.Center)
 
-                    Text(text = "Popularity: $popularity",
+                    Text(text = "Popularity: ${takeTwoDigit(popularity)}",
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(2.dp),
-                        fontWeight = FontWeight.Thin,
+                        fontWeight = FontWeight.Light,
                         color = MaterialTheme.colors.primaryVariant,
                         textAlign = TextAlign.Center)
 
                     Text(text = "Release Date: $release_date",
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(2.dp),
-                        fontWeight = FontWeight.Thin,
+                        fontWeight = FontWeight.Light,
                         color = MaterialTheme.colors.primaryVariant,
                         textAlign = TextAlign.Center)
 
-                    Text(text = "vote: ${vote_average.toDouble()}",
+                    Text(text = "Vote: "+takeTwoDigit(vote_average),
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(2.dp),
-                        fontWeight = FontWeight.Thin,
+                        fontWeight = FontWeight.Light ,
                         color = MaterialTheme.colors.primaryVariant,
                         textAlign = TextAlign.Center)
 
@@ -127,32 +122,13 @@ fun MovieDetailScreen(
                     CircularProgressIndicator(color = MaterialTheme.colors.secondary)
                 }
             }
-
-
         }
-
-
+      }
     }
-
-    }
-
-
 }
 
-@Composable
-fun CoilImage(
-    selected : MovieResponseItems
-){
-    Box(
-        modifier = Modifier
-            .height(150.dp)
-            .width(150.dp),
-            contentAlignment = Alignment.Center
-    ){
-        val painter = rememberImagePainter(
-            data = selected.poster_path ,
-            builder = {})
-    
-        Image(painter = painter, contentDescription = selected.original_title)
-    }
+fun takeTwoDigit(number:Double) :String{
+    val bd = BigDecimal(number)
+    val roundoff = bd.setScale(1, RoundingMode.FLOOR)
+    return roundoff.toString()
 }
