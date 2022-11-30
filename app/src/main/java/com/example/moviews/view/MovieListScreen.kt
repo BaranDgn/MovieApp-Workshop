@@ -1,8 +1,6 @@
 package com.example.moviews.view
 
 
-import android.content.Intent
-import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -36,7 +34,6 @@ import com.example.moviews.R
 import com.example.moviews.StoreUser
 import com.example.moviews.login.viewmodel.LoginViewModel
 import com.example.moviews.model.MovieResponseItems
-import com.example.moviews.util.Constrants
 import com.example.moviews.viewmodel.MovieListViewModel
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -49,13 +46,9 @@ fun MovieListScreen(
     loginViewModel : LoginViewModel = hiltViewModel()
 ) {
     val ctx = LocalContext.current
-    //loginViewModel.logout()
-    //navController.navigate("login_screen")
-    //Toast.makeText(ctx, "It's logged out", Toast.LENGTH_SHORT).show()
 
-    //New ekleme
+    //DataStore
     val dataStore = StoreUser(ctx)
-    //eklenen
     val savedEmail = dataStore.getEmail.collectAsState(initial ="")
 
 
@@ -94,6 +87,7 @@ fun MovieListScreen(
                     .fillMaxWidth()
                     .padding(4.dp, 4.dp, 4.dp, 0.dp)
                     ){
+                    Box(contentAlignment = Alignment.Center){
                     Text(
                         text = "Movies", modifier = Modifier
                             .padding(10.dp, 10.dp, 0.dp, 0.dp),
@@ -102,12 +96,14 @@ fun MovieListScreen(
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colors.primaryVariant
-                    )
-                    //Spacer(modifier = Modifier.width(135.dp))
+                    )}
+
+                    Spacer(modifier = Modifier.width(135.dp))
+
                     Box(contentAlignment = Alignment.TopEnd){
                         Text(
                             text = savedEmail.value!!,
-                            textAlign = TextAlign.End,
+                            textAlign = TextAlign.Right,
                             modifier = Modifier
                                 .padding(0.dp, 10.dp, 10.dp, 0.dp),
                             fontFamily = FontFamily.SansSerif,
@@ -116,8 +112,6 @@ fun MovieListScreen(
                             color = MaterialTheme.colors.primaryVariant
                         )
                     }
-
-
                 }
 
                 Spacer(modifier = Modifier.height(4.dp))
@@ -131,11 +125,9 @@ fun MovieListScreen(
                 Spacer(modifier = Modifier.height(8.dp))
                 MovieList(navController = navController, viewModel = viewModel)
             }
-
         }
     }
 }
-
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
