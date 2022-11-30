@@ -1,5 +1,6 @@
 package com.example.moviews
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -7,7 +8,10 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import androidx.navigation.navDeepLink
 import com.example.moviews.login.SignUpScreen
+import com.example.moviews.model.MovieResponse
+import com.example.moviews.model.MovieResponseItems
 import com.example.moviews.navigation.BottomBarScreen
 import com.example.moviews.view.*
 
@@ -70,7 +74,7 @@ fun BottomNavGraph(
         //DETAIL SCREEN
         composable(
             //"movie_detail_screen/{movieTitle}/{popularity}",
-            "movie_detail_screen/{movieTitle}/{popularity}/{release_date}/{vote_average}/{overview}",
+            "movie_detail_screen/{movieTitle}/{popularity}/{release_date}/{vote_average}/{overview}/{poster_path}",
             arguments = listOf(
                 navArgument("movieTitle"){
                     type = NavType.StringType
@@ -82,9 +86,12 @@ fun BottomNavGraph(
                     type = NavType.StringType
                 },
                 navArgument("vote_average"){
-                    type = NavType.StringType
+                    type = NavType.FloatType
                 },
                 navArgument("overview"){
+                    type = NavType.StringType
+                },
+                navArgument("poster_path"){
                     type = NavType.StringType
                 }
             )
@@ -104,6 +111,9 @@ fun BottomNavGraph(
             val overview = remember {
                 it.arguments?.getString("overview")
             }
+            val poster_path = remember {
+                it.arguments?.getString("poster_path")
+            }
 
             MovieDetailScreen(
                 orginal_title = movieTitle ?: "",
@@ -111,6 +121,7 @@ fun BottomNavGraph(
                 release_date = release_date ?: "",
                 vote_average = vote_average!!.toDouble(),
                 overview = overview ?: "",
+                poster_path=poster_path ?:"",
                 navController = navController)
         }
     }

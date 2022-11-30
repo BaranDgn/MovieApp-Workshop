@@ -1,5 +1,7 @@
 package com.example.moviews.view
 
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.gestures.scrollable
@@ -33,6 +35,7 @@ fun MovieDetailScreen(
     release_date : String,
     vote_average : Double,
     overview: String,
+    poster_path:String,
     navController: NavController,
     viewModel: MovieDetailViewModel = hiltViewModel(),
 ){
@@ -71,9 +74,10 @@ fun MovieDetailScreen(
             when(movieItem){
 
                 is Resource.Success -> {
-                    val selectedMovie = movieItem.data!!.results[7]
+                    val selectedMovie = movieItem.data!!.results[5]
 
-                   Image(painter = rememberImagePainter(data = LOGO_URL+selectedMovie.poster_path),
+
+                   Image(painter = rememberImagePainter(data = poster_path),
                         contentDescription = selectedMovie.original_title,
                         modifier = Modifier
                             .padding(16.dp)
@@ -88,21 +92,21 @@ fun MovieDetailScreen(
                         color = Color.Blue,
                         textAlign = TextAlign.Center)
 
-                    Text(text = "Popularity: "+popularity.toString(),
+                    Text(text = "Popularity: $popularity",
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(2.dp),
                         fontWeight = FontWeight.Thin,
                         color = MaterialTheme.colors.primaryVariant,
                         textAlign = TextAlign.Center)
 
-                    Text(text = "Release Date: "+ release_date,
+                    Text(text = "Release Date: $release_date",
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(2.dp),
                         fontWeight = FontWeight.Thin,
                         color = MaterialTheme.colors.primaryVariant,
                         textAlign = TextAlign.Center)
 
-                    Text(text = "vote: "+vote_average.toString(),
+                    Text(text = "vote: ${vote_average.toDouble()}",
                         style = MaterialTheme.typography.h6,
                         modifier = Modifier.padding(2.dp),
                         fontWeight = FontWeight.Thin,

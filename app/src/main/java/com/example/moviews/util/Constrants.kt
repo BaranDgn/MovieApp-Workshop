@@ -11,10 +11,10 @@ object Constrants {
      const val CALL_ATTRIBUTES = "language,page"
 
 
-     const val BASE_LOGO_URL = "https://image.tmdb.org/"
+     const val BASE_LOGO_URL = "https://image.tmdb.org"
    //  https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg
 
-     const val LOGO_URL = "$BASE_LOGO_URL/t/p/w500/"
+     const val LOGO_URL = "$BASE_LOGO_URL/t/p/w500"
 
 
 

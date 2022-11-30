@@ -1,6 +1,8 @@
 package com.example.moviews.view
 
 
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,7 +36,10 @@ import com.example.moviews.R
 import com.example.moviews.StoreUser
 import com.example.moviews.login.viewmodel.LoginViewModel
 import com.example.moviews.model.MovieResponseItems
+import com.example.moviews.util.Constrants
 import com.example.moviews.viewmodel.MovieListViewModel
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 
 
 @Composable
@@ -174,7 +179,10 @@ fun MovieRow(
     navController: NavController,
     movie : MovieResponseItems
 ){
-    
+
+
+    val encodedUrl = URLEncoder.encode("${movie.poster_path}", StandardCharsets.UTF_8.toString())
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -182,7 +190,8 @@ fun MovieRow(
             .clickable {
                 navController.navigate(
                     //"movie_detail_screen/${movie.original_title}/${movie.popularity}"
-                    "movie_detail_screen/${movie.original_title}/${movie.popularity}/${movie.release_date}/${movie.vote_average}/${movie.overview}"
+
+                    "movie_detail_screen/${movie.original_title}/${movie.popularity}/${movie.release_date}/${movie.vote_average}/${movie.overview}/${encodedUrl}"
                 )
             }
     ) {
