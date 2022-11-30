@@ -18,6 +18,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.moviews.model.MovieResponse
+import com.example.moviews.navigation.BottomBarScreen
 import com.example.moviews.util.Resource
 import com.example.moviews.viewmodel.MovieDetailViewModel
 import java.math.BigDecimal
